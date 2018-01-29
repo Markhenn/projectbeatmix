@@ -1,7 +1,6 @@
 /*
 To Do List:
 
-
     Four variables to represent the arrays of drum pads. These arrays are named after the drums they represent: kicks, snares, hiHats, rideCymbals. These arrays should all have a length of 16 and be filled with false.
 
     a function called toggleDrum that takes two arguments: a string representing the array name ('kicks', 'snares', 'hiHats', or 'rideCymbals'), and an index number. This function should flip the boolean value in the correct array at the specified index.
@@ -40,4 +39,61 @@ let snares = Array(16).fill(false);
 let hiHats = Array(16).fill(false);
 let rideCymbals = Array(16).fill(false);
 
+//console.log(kicks);
+
+
+const toggleDrum = (drumArray, index) => {
+
+  if (index < 0 || index > 15) {
+    return;
+  }
+
+  switch (drumArray) {
+    case 'kicks':
+      kicks[index] === true ? kicks[index] = false : kicks[index] = true;
+      break;
+    case 'snares':
+      snares[index] === true ? snares[index] = false : snares[index] = true;
+      break;
+    case 'hiHats':
+      hiHats[index] === true ? hiHats[index] = false : hiHats[index] = true;
+      break;
+    case 'rideCymbals':
+      rideCymbals[index] === true ? rideCymbals[index] = false : rideCymbals[index] = true;
+      break;
+    default:
+      break;
+  }
+
+};
+
+//A function named clear that takes an array name string and sets all values in the correct array to false.
+
+const clear = drumArray => {
+
+  switch (drumArray) {
+    case 'kicks':
+      kicks.fill(false);
+      break;
+    case 'snares':
+      snares.fill(false);
+      break;
+    case 'hiHats':
+      hiHats.fill(false);
+      break;
+    case 'rideCymbals':
+      rideCymbals.fill(false);
+      break;
+    default:
+      break;
+};
+
+}
+
+//toggleDrum('kicks', 15);
+//console.log(kicks);
+//
+//kicks.fill(true);
+//console.log(kicks);
+//clear('kicks')
 //console.log(kicks);
