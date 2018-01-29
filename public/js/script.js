@@ -67,8 +67,6 @@ const toggleDrum = (drumArray, index) => {
 
 };
 
-//A function named clear that takes an array name string and sets all values in the correct array to false.
-
 const clear = drumArray => {
 
   switch (drumArray) {
@@ -86,12 +84,49 @@ const clear = drumArray => {
       break;
     default:
       break;
-};
-
 }
 
-//toggleDrum('kicks', 15);
-//console.log(kicks);
+};
+
+  //A function named invert that takes an array name string and flips the boolean value of all elements in the correct array.
+
+  const invert = drumArray => {
+
+    switch (drumArray) {
+      case 'kicks':
+        for (index = 0; index < kicks.length; index++) {
+          kicks[index] === true ? kicks[index] = false : kicks[index] = true;
+      }
+        break;
+      case 'snares':
+        for (index = 0; index < snares.length; index++) {
+          snares[index] === true ? snares[index] = false : snares[index] = true;
+        }
+        break;
+      case 'hiHats':
+        for (index = 0; index < hiHats.length; index++) {
+          hiHats[index] === true ? hiHats[index] = false : hiHats[index] = true;
+        }
+        break;
+      case 'rideCymbals':
+        for (index = 0; index < rideCymbals.length; index++) {
+          rideCymbals[index] === true ? rideCymbals[index] = false : rideCymbals[index] = true;
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
+toggleDrum('kicks', 15);
+toggleDrum('kicks', 2);
+toggleDrum('kicks', 15);
+toggleDrum('kicks', 4);
+toggleDrum('kicks', 9);
+toggleDrum('kicks', 11);
+console.log(kicks);
+invert('kicks');
+console.log(kicks);
 //
 //kicks.fill(true);
 //console.log(kicks);
