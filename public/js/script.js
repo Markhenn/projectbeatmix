@@ -118,9 +118,46 @@ const clear = drumArray => {
     }
   };
 
+//  a function called getNeighborPads that accepts an x, y, and a size parameter. In the application, these values refer to the synth grid: x and y zero-indexed from the bottom left of the grid, and size is a number representing the number of rows/columns in the square. getNeighborPads should return an array of neighbors, each in the form [xValue, yValue]. Neighbors are the squares immediately to the left, right, above, and below of a grid position.
 
 
+function inScope(coordinate, size) {
+  if (coordinate < size && coordinate >= 0) {return true}
+}
 
+const getNeighborPads = (x, y, size) => {
+
+  if (!inScope(x,size) || !inScope(y,size)) {return []}
+
+  let returnArray = [];
+
+  if (x === size - 1) {
+    returnArray.push([x-1,y]);
+  }
+  if (y === size - 1) {
+    returnArray.push([x,y-1]);
+  }
+  if (y === 0) {
+      returnArray.push([x,y+1]);
+  }
+  if (x === 0) {
+    returnArray.push([x+1,y]);
+  }
+
+  if (x !== 0 && x !== size - 1) {
+    returnArray.push([x+1,y],[x-1,y]);
+  }
+
+  if (y !== 0 && y !== size - 1) {
+    returnArray.push([x,y+1],[x,y-1]);
+  }
+
+  return returnArray;
+
+};
+
+
+console.log(getNeighborPads(4,3,5));
 
 /*
 toggleDrum('kicks', 15);
