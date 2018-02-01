@@ -32,14 +32,35 @@ To work on the bonus with tests, you will need to remove their pending status. O
 
 */
 
+const createDrumArray = () => new Array(16).fill(false);
 
 // Drum Arrays
-let kicks = Array(16).fill(false);
-let snares = Array(16).fill(false);
-let hiHats = Array(16).fill(false);
-let rideCymbals = Array(16).fill(false);
+let kicks = createDrumArray();
+let snares = createDrumArray();
+let hiHats = createDrumArray();
+let rideCymbals = createDrumArray();
 
 //console.log(kicks);
+
+const chooseDrum = drum => {
+
+  switch (drum) {
+    case 'kicks':
+      return kicks;
+      break;
+    case 'snares':
+      return snares;
+      break;
+    case 'hiHats':
+      return hiHats;
+      break;
+    case 'rideCymbals':
+      return rideCymbals;
+      break;
+    default:
+      break;
+  }
+};
 
 
 const toggleDrum = (drumArray, index) => {
@@ -48,77 +69,40 @@ const toggleDrum = (drumArray, index) => {
     return;
   }
 
-  switch (drumArray) {
-    case 'kicks':
-      kicks[index] === true ? kicks[index] = false : kicks[index] = true;
-      break;
-    case 'snares':
-      snares[index] === true ? snares[index] = false : snares[index] = true;
-      break;
-    case 'hiHats':
-      hiHats[index] === true ? hiHats[index] = false : hiHats[index] = true;
-      break;
-    case 'rideCymbals':
-      rideCymbals[index] === true ? rideCymbals[index] = false : rideCymbals[index] = true;
-      break;
-    default:
-      break;
+  if (!chooseDrum(drumArray)) {
+    return;
+  } else {
+    //console.log(chooseDrum(drumArray));
+    chooseDrum(drumArray)[index] = !chooseDrum(drumArray)[index];
+    //console.log(chooseDrum(drumArray)[index]);
   }
-
 };
+
+//toggleDrum('kicks',0);
 
 const clear = drumArray => {
 
-  switch (drumArray) {
-    case 'kicks':
-      kicks.fill(false);
-      break;
-    case 'snares':
-      snares.fill(false);
-      break;
-    case 'hiHats':
-      hiHats.fill(false);
-      break;
-    case 'rideCymbals':
-      rideCymbals.fill(false);
-      break;
-    default:
-      break;
-}
-
+  const drums = chooseDrum(drumArray);
+  if (drums) {
+    drums.fill(false);
+  }
 };
 
-  //A function named invert that takes an array name string and flips the boolean value of all elements in the correct array.
+
 
   const invert = drumArray => {
 
-    switch (drumArray) {
-      case 'kicks':
-        for (index = 0; index < kicks.length; index++) {
-          kicks[index] === true ? kicks[index] = false : kicks[index] = true;
+    const drums = chooseDrum(drumArray);
+
+    if (drums) {
+      for (index = 0; index < drums.length; index++) {
+        drums[index] = !drums[index]
       }
-        break;
-      case 'snares':
-        for (index = 0; index < snares.length; index++) {
-          snares[index] === true ? snares[index] = false : snares[index] = true;
-        }
-        break;
-      case 'hiHats':
-        for (index = 0; index < hiHats.length; index++) {
-          hiHats[index] === true ? hiHats[index] = false : hiHats[index] = true;
-        }
-        break;
-      case 'rideCymbals':
-        for (index = 0; index < rideCymbals.length; index++) {
-          rideCymbals[index] === true ? rideCymbals[index] = false : rideCymbals[index] = true;
-        }
-        break;
-      default:
-        break;
     }
   };
 
-//  a function called getNeighborPads that accepts an x, y, and a size parameter. In the application, these values refer to the synth grid: x and y zero-indexed from the bottom left of the grid, and size is a number representing the number of rows/columns in the square. getNeighborPads should return an array of neighbors, each in the form [xValue, yValue]. Neighbors are the squares immediately to the left, right, above, and below of a grid position.
+
+
 
 
 function inScope(coordinate, size) {
@@ -127,37 +111,24 @@ function inScope(coordinate, size) {
 
 const getNeighborPads = (x, y, size) => {
 
-  if (!inScope(x,size) || !inScope(y,size)) {return []}
-
   let returnArray = [];
 
-  if (x === size - 1) {
-    returnArray.push([x-1,y]);
-  }
-  if (y === size - 1) {
-    returnArray.push([x,y-1]);
-  }
-  if (y === 0) {
-      returnArray.push([x,y+1]);
-  }
-  if (x === 0) {
-    returnArray.push([x+1,y]);
-  }
+  if (!inScope(x,size) || !inScope(y,size)) {return returnArray}
 
-  if (x !== 0 && x !== size - 1) {
-    returnArray.push([x+1,y],[x-1,y]);
-  }
+  returnArray.push([x-1,y],[x+1,y],[x,y-1],[x,y+1]);
 
-  if (y !== 0 && y !== size - 1) {
-    returnArray.push([x,y+1],[x,y-1]);
-  }
+  const neighborPads = returnArray.filter(neighbor => {
+    return neighbor.every(point => {
+      return point < size && point >= 0
+    });
+  });
 
-  return returnArray;
+  return neighborPads;
 
 };
 
 
-console.log(getNeighborPads(4,3,5));
+//console.log(getNeighborPads(4,3,5));
 
 /*
 toggleDrum('kicks', 15);
